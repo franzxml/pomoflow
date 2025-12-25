@@ -19,21 +19,13 @@ export default function Navigation() {
             Pomoflow
           </Link>
 
-          {/* Navigation Items */}
-          <div className="flex items-center justify-center w-full md:flex-1">
-            <Link
-              href="/"
-              className="flex flex-col md:flex-row items-center gap-1 md:gap-2 px-3 py-2 rounded-lg text-red-500 bg-red-50 dark:bg-red-900/20 transition-colors"
-            >
-              <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-              </svg>
-              <span className="text-xs md:text-sm font-medium">Timer</span>
-            </Link>
-          </div>
-
-          {/* Spacer - Desktop only */}
-          <div className="hidden md:block" />
+          {/* Testing Link */}
+          <Link
+            href="/testing"
+            className="text-sm font-medium text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-all"
+          >
+            🧪 Testing
+          </Link>
         </div>
       </div>
     </nav>

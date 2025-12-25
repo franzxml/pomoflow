@@ -1,21 +1,25 @@
 'use client';
 
-import { usePomodoro } from '../hooks/usePomodoro';
+import { usePomodoroTest } from '../hooks/usePomodoroTest';
 import { TimerMode } from '../types';
+import { useState } from 'react';
 
-export default function Timer() {
+export default function TestingTimer() {
   const {
     formattedTime,
     isRunning,
     currentMode,
-    progress,
-    modeLabel,
     completedPomodoros,
+    customDuration,
+    modeLabel,
     toggleTimer,
     resetTimer,
     stopTimer,
     setMode,
-  } = usePomodoro();
+    setCustomDuration,
+  } = usePomodoroTest();
+
+  const [inputSeconds, setInputSeconds] = useState(customDuration.toString());
 
   const modeButtons: { mode: TimerMode; label: string }[] = [
     { mode: 'work', label: 'Fokus' },
@@ -56,8 +60,20 @@ export default function Timer() {
     }
   };
 
+  const handleSetCustomDuration = () => {
+    const seconds = parseInt(inputSeconds, 10);
+    if (!isNaN(seconds) && seconds > 0) {
+      setCustomDuration(seconds);
+    }
+  };
+
   return (
     <div className="flex flex-col items-center justify-center space-y-8">
+      {/* Test Mode Badge */}
+      <div className="px-4 py-2 bg-yellow-100 dark:bg-yellow-900 text-yellow-800 dark:text-yellow-200 rounded-lg font-semibold">
+        🧪 Mode Testing - Durasi Lebih Singkat untuk Testing
+      </div>
+
       {/* Mode Selector */}
       <div className="flex gap-2 p-1 bg-gray-100 dark:bg-gray-800 rounded-lg">
         {modeButtons.map(({ mode, label }) => (
@@ -73,6 +89,28 @@ export default function Timer() {
             {label}
           </button>
         ))}
+      </div>
+
+      {/* Custom Duration Input */}
+      <div className="flex gap-2 items-center bg-gray-100 dark:bg-gray-800 p-4 rounded-lg">
+        <label className="text-sm font-medium text-gray-700 dark:text-gray-300">
+          Durasi Custom (detik):
+        </label>
+        <input
+          type="number"
+          value={inputSeconds}
+          onChange={(e) => setInputSeconds(e.target.value)}
+          disabled={isRunning}
+          className="w-20 px-2 py-1 border rounded-md dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+          min="1"
+        />
+        <button
+          onClick={handleSetCustomDuration}
+          disabled={isRunning}
+          className="px-3 py-1 bg-purple-500 hover:bg-purple-600 disabled:bg-gray-400 text-white rounded-md text-sm font-medium transition-all"
+        >
+          Set
+        </button>
       </div>
 
       {/* Timer Circle */}
@@ -99,7 +137,7 @@ export default function Timer() {
             strokeLinecap="round"
             className={getModeTextColor()}
             strokeDasharray={`${2 * Math.PI * 45} ${2 * Math.PI * 45}`}
-            strokeDashoffset={`${2 * Math.PI * 45 * (1 - progress / 100)}`}
+            strokeDashoffset={`${2 * Math.PI * 45 * (1 - ((customDuration - customDuration % 60 === 0 && inputSeconds === customDuration.toString() ? customDuration : 0) / customDuration || 0) / 100)}`}
             style={{ transition: 'stroke-dashoffset 0.5s ease' }}
           />
         </svg>
@@ -113,6 +151,13 @@ export default function Timer() {
             {modeLabel}
           </span>
         </div>
+      </div>
+
+      {/* Completed Pomodoros */}
+      <div className="text-center">
+        <span className="text-sm text-gray-500 dark:text-gray-400">
+          Sesi Selesai: {completedPomodoros}
+        </span>
       </div>
 
       {/* Controls */}
@@ -136,7 +181,6 @@ export default function Timer() {
           Berhenti
         </button>
       </div>
-
     </div>
   );
 }

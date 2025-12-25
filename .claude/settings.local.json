@@ -3,7 +3,11 @@
     "allow": [
       "Bash(npx create-next-app:*)",
       "Bash(npm install:*)",
-      "Bash(npm run build:*)"
+      "Bash(npm run build:*)",
+      "Bash(find:*)",
+      "Bash(cat:*)",
+      "Bash(git add:*)",
+      "Bash(git commit -m \"$(cat <<''EOF''\nRemove all database-dependent features - make app session-only\n\n- Removed task management system (TaskForm, TaskList components)\n- Removed statistics and analytics tracking (StatsChart component, DailyStats)\n- Removed settings persistence (no more Zustand persist middleware)\n- Simplified store to only manage timer state (no localStorage)\n- Removed settings pages, tasks page, and stats page\n- Updated Timer component to remove task and stats references\n- Updated Navigation to be minimal (only Timer link)\n- Updated ThemeProvider to use system preference only\n- Simplified types to only include TimerMode\n\nApp now functions as a pure session-based Pomodoro timer with no data persistence.\n\n🤖 Generated with [Claude Code](https://claude.com/claude-code)\n\nCo-Authored-By: Claude Haiku 4.5 <noreply@anthropic.com>\nEOF\n)\")"
     ]
   }
 }

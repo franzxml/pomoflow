@@ -19,20 +19,13 @@ export function usePomodoro() {
     startTimer,
     pauseTimer,
     resetTimer,
+    stopTimer,
     tick,
     setMode,
   } = usePomodoroStore();
 
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
 
-  // Request notification permission on mount
-  useEffect(() => {
-    if (typeof window !== 'undefined' && 'Notification' in window) {
-      if (Notification.permission === 'default') {
-        Notification.requestPermission();
-      }
-    }
-  }, []);
 
   // Timer interval
   useEffect(() => {
@@ -109,6 +102,7 @@ export function usePomodoro() {
     startTimer,
     pauseTimer,
     resetTimer,
+    stopTimer,
     setMode,
     toggleTimer: isRunning ? pauseTimer : startTimer,
   };

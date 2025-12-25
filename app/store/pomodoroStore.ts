@@ -21,6 +21,7 @@ interface PomodoroState {
   startTimer: () => void;
   pauseTimer: () => void;
   resetTimer: () => void;
+  stopTimer: () => void;
   tick: () => void;
   completeSession: () => void;
   setMode: (mode: TimerMode) => void;
@@ -46,6 +47,15 @@ export const usePomodoroStore = create<PomodoroState>((set, get) => ({
     set({
       timeRemaining: getDurationForMode(currentMode) * 60,
       isRunning: false
+    });
+  },
+
+  stopTimer: () => {
+    set({
+      timeRemaining: DEFAULT_DURATIONS.work * 60,
+      isRunning: false,
+      currentMode: 'work',
+      completedPomodoros: 0,
     });
   },
 
@@ -77,13 +87,12 @@ export const usePomodoroStore = create<PomodoroState>((set, get) => ({
       nextMode = 'work';
     }
 
-    // Show notification
-    if (typeof window !== 'undefined' && Notification.permission === 'granted') {
-      new Notification('Pomoflow', {
-        body: currentMode === 'work'
-          ? 'Waktu istirahat!'
-          : 'Kembali bekerja!',
-        icon: '/favicon.ico',
+    // Play notification sound
+    if (typeof window !== 'undefined') {
+      const audio = new Audio('/sounds/melodic-mirth.mp3');
+      audio.volume = 0.8;
+      audio.play().catch(() => {
+        console.log('Audio playback failed');
       });
     }
 
