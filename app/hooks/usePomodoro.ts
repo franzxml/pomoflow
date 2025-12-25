@@ -3,15 +3,19 @@
 import { useEffect, useCallback, useRef } from 'react';
 import { usePomodoroStore } from '../store/pomodoroStore';
 
+// Default durations (in minutes)
+const DURATIONS = {
+  work: 25,
+  shortBreak: 5,
+  longBreak: 15,
+} as const;
+
 export function usePomodoro() {
   const {
     timeRemaining,
     isRunning,
     currentMode,
     completedPomodoros,
-    settings,
-    activeTaskId,
-    tasks,
     startTimer,
     pauseTimer,
     resetTimer,
@@ -71,12 +75,12 @@ export function usePomodoro() {
 
   const getProgress = useCallback(() => {
     const totalDuration = currentMode === 'work'
-      ? settings.workDuration * 60
+      ? DURATIONS.work * 60
       : currentMode === 'shortBreak'
-        ? settings.shortBreakDuration * 60
-        : settings.longBreakDuration * 60;
+        ? DURATIONS.shortBreak * 60
+        : DURATIONS.longBreak * 60;
     return ((totalDuration - timeRemaining) / totalDuration) * 100;
-  }, [timeRemaining, currentMode, settings]);
+  }, [timeRemaining, currentMode]);
 
   const getModeLabel = useCallback(() => {
     switch (currentMode) {
@@ -89,16 +93,12 @@ export function usePomodoro() {
     }
   }, [currentMode]);
 
-  const activeTask = tasks.find(t => t.id === activeTaskId);
-
   return {
     // State
     timeRemaining,
     isRunning,
     currentMode,
     completedPomodoros,
-    settings,
-    activeTask,
 
     // Computed
     formattedTime: formatTime(timeRemaining),

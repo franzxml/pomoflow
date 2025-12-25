@@ -11,7 +11,6 @@ export default function Timer() {
     progress,
     modeLabel,
     completedPomodoros,
-    activeTask,
     toggleTimer,
     resetTimer,
     setMode,
@@ -148,17 +147,6 @@ export default function Timer() {
         </div>
         <span className="font-semibold">{completedPomodoros}</span>
       </div>
-
-      {/* Active Task */}
-      {activeTask && (
-        <div className={`w-full max-w-md p-4 rounded-lg border-2 ${getModeBorderColor()} bg-gray-50 dark:bg-gray-800`}>
-          <p className="text-sm text-gray-500 dark:text-gray-400 mb-1">Tugas Aktif:</p>
-          <p className="font-semibold text-gray-900 dark:text-white">{activeTask.title}</p>
-          <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">
-            {activeTask.completedPomodoros} / {activeTask.estimatedPomodoros} pomodoro
-          </p>
-        </div>
-      )}
     </div>
   );
 }
