@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="@franzxml">
+    <title>Pomoflow</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+    <button id="backBtn" class="back-button" style="display: none;">← Kembali</button>
+
+    <!-- View 1: Home Screen -->
+    <div id="home-view" class="view active">
+        <h1>Pomoflow</h1>
+        <p class="subtitle">
+            Tingkatkan fokus Anda dengan teknik <span class="underline">Pomodoro</span>. Metode manajemen waktu dari <span class="underline">Francesco Cirillo</span> yang dirancang untuk menjaga alur kerja tetap produktif.
+        </p>
+        <button id="mainStartBtn">Mulai</button>
+        <p class="developer-credit">Developed by @franzxml</p>
+    </div>
+
+    <!-- View 2: Mode Selection -->
+    <div id="mode-selection-view" class="view" style="display: none;">
+        <h1>Anda mau yang mana?</h1>
+        <div class="controls">
+            <button id="workModeBtn">Kerja</button>
+            <button id="breakModeBtn">Istirahat</button>
+        </div>
+    </div>
+
+    <!-- View 3: Timer -->
+    <div id="timer-view" class="view" style="display: none;">
+        <h1 id="timer-title">Timer</h1>
+        <div id="time-display" class="time-display">25:00</div>
+        <div class="controls">
+            <button id="startPauseBtn">Mulai</button>
+            <button id="resetBtn">Reset</button>
+        </div>
+    </div>
+
+    <!-- Custom Notification -->
+    <div id="custom-notif" class="custom-notif" style="display: none;">
+        <div class="notif-content">
+            <p id="notif-message">Waktu habis!</p>
+            <button id="closeNotifBtn">Tutup</button>
+        </div>
+    </div>
+
+    <script type="module" src="assets/js/main.js"></script>
+</body>
+</html>
