@@ -54,10 +54,82 @@ h1 {
 .controls {
     display: flex;
     gap: 20px;
+    justify-content: center;
+    flex-wrap: wrap;
+    width: 100%;
+    padding: 0 20px;
+    box-sizing: border-box;
 }
 
 .controls button {
-    min-width: 180px;
+    min-width: 150px;
+    flex: 1;
+    max-width: 200px;
+}
+
+.custom-input-group {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 30px;
+}
+
+.custom-input-group input {
+    width: 100px;
+    padding: 15px;
+    font-size: 2rem;
+    text-align: center;
+    background-color: transparent;
+    border: 2px solid var(--text-color);
+    border-radius: 12px;
+    color: var(--text-color);
+    font-family: 'JetBrains Mono', monospace;
+}
+
+.custom-input-group input:focus {
+    outline: none;
+    background-color: rgba(205, 172, 149, 0.1);
+}
+
+.custom-input-group span {
+    font-size: 2rem;
+    font-weight: bold;
+}
+
+/* Hilangkan panah input number */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+input[type=number] {
+    -moz-appearance: textfield;
+}
+
+@media (max-width: 480px) {
+    .controls {
+        gap: 10px;
+    }
+    
+    .controls button {
+        min-width: 100px; /* Diperkecil lagi agar 3 tombol muat */
+        padding: 12px 10px;
+        font-size: 0.9rem;
+    }
+
+    .custom-input-group input {
+        width: 80px;
+        font-size: 1.5rem;
+    }
+
+    h1 {
+        font-size: 2.2rem;
+    }
+
+    .time-display {
+        font-size: 5rem;
+    }
 }
 
 button {

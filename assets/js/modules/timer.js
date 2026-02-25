@@ -14,9 +14,30 @@ const resetBtn = document.getElementById('resetBtn');
 export function initTimer() {
     const workModeBtn = document.getElementById('workModeBtn');
     const breakModeBtn = document.getElementById('breakModeBtn');
+    const customModeBtn = document.getElementById('customModeBtn');
+    const startCustomBtn = document.getElementById('startCustomBtn');
 
     workModeBtn.addEventListener('click', () => setTimerMode(25, 'Kerja'));
     breakModeBtn.addEventListener('click', () => setTimerMode(5, 'Istirahat'));
+    
+    // Menuju ke setup kustom
+    customModeBtn.addEventListener('click', () => {
+        switchView('custom', 'forward');
+    });
+
+    // Mulai timer kustom
+    startCustomBtn.addEventListener('click', () => {
+        const mins = parseInt(document.getElementById('customMinutes').value) || 0;
+        const secs = parseInt(document.getElementById('customSeconds').value) || 0;
+        
+        if (mins === 0 && secs === 0) {
+            alert("Harap masukkan waktu yang valid!");
+            return;
+        }
+
+        const totalSeconds = (mins * 60) + secs;
+        setTimerMode(totalSeconds / 60, 'Kostum');
+    });
 
     startPauseBtn.addEventListener('click', toggleTimer);
     resetBtn.addEventListener('click', resetTimer);

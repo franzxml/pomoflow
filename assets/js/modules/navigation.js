@@ -3,6 +3,7 @@ const backBtn = document.getElementById('backBtn');
 const views = {
     home: document.getElementById('home-view'),
     mode: document.getElementById('mode-selection-view'),
+    custom: document.getElementById('custom-setup-view'),
     timer: document.getElementById('timer-view')
 };
 
@@ -16,6 +17,8 @@ export function initNavigation(onBackToMode) {
     backBtn.addEventListener('click', () => {
         if (currentView === 'timer') {
             onBackToMode();
+            switchView('mode', 'backward');
+        } else if (currentView === 'custom') {
             switchView('mode', 'backward');
         } else if (currentView === 'mode') {
             switchView('home', 'backward');

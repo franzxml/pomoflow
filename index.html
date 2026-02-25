@@ -29,7 +29,19 @@
         <div class="controls">
             <button id="workModeBtn">Kerja</button>
             <button id="breakModeBtn">Istirahat</button>
+            <button id="customModeBtn">Kostum</button>
         </div>
+    </div>
+
+    <!-- View 2.5: Custom Timer Setup -->
+    <div id="custom-setup-view" class="view" style="display: none;">
+        <h1>Atur Waktu</h1>
+        <div class="custom-input-group">
+            <input type="number" id="customMinutes" placeholder="Menit" min="0" max="999">
+            <span>:</span>
+            <input type="number" id="customSeconds" placeholder="Detik" min="0" max="59">
+        </div>
+        <button id="startCustomBtn">Mulai Timer</button>
     </div>
 
     <!-- View 3: Timer -->
