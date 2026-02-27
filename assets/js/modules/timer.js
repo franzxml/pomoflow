@@ -27,8 +27,13 @@ export function initTimer() {
 
     // Mulai timer kustom
     startCustomBtn.addEventListener('click', () => {
-        const mins = parseInt(document.getElementById('customMinutes').value) || 0;
-        const secs = parseInt(document.getElementById('customSeconds').value) || 0;
+        const minsInput = document.getElementById('customMinutes');
+        const secsInput = document.getElementById('customSeconds');
+        const nameInput = document.getElementById('customName');
+
+        const mins = parseInt(minsInput.value) || 0;
+        const secs = parseInt(secsInput.value) || 0;
+        const customName = nameInput.value.trim();
         
         if (mins === 0 && secs === 0) {
             alert("Harap masukkan waktu yang valid!");
@@ -36,7 +41,14 @@ export function initTimer() {
         }
 
         const totalSeconds = (mins * 60) + secs;
-        setTimerMode(totalSeconds / 60, 'Kostum');
+        const title = customName || 'Kostum';
+        
+        // Reset inputs
+        minsInput.value = '';
+        secsInput.value = '';
+        nameInput.value = '';
+
+        setTimerMode(totalSeconds / 60, title);
     });
 
     startPauseBtn.addEventListener('click', toggleTimer);

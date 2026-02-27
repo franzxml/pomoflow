@@ -67,11 +67,35 @@ h1 {
     max-width: 200px;
 }
 
+.custom-setup-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    margin-top: 30px;
+}
+
+.custom-name-input {
+    width: 300px;
+    padding: 12px;
+    font-size: 1.2rem;
+    text-align: center;
+    background-color: transparent;
+    border: 2px solid var(--text-color);
+    border-radius: 8px;
+    color: var(--text-color);
+    font-family: 'JetBrains Mono', monospace;
+}
+
+.custom-name-input:focus {
+    outline: none;
+    background-color: rgba(205, 172, 149, 0.1);
+}
+
 .custom-input-group {
     display: flex;
     align-items: center;
     gap: 10px;
-    margin-top: 30px;
 }
 
 .custom-input-group input {

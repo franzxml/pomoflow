@@ -36,10 +36,13 @@
     <!-- View 2.5: Custom Timer Setup -->
     <div id="custom-setup-view" class="view" style="display: none;">
         <h1>Atur Waktu</h1>
-        <div class="custom-input-group">
-            <input type="number" id="customMinutes" placeholder="Menit" min="0" max="999">
-            <span>:</span>
-            <input type="number" id="customSeconds" placeholder="Detik" min="0" max="59">
+        <div class="custom-setup-container">
+            <input type="text" id="customName" placeholder="Nama Timer (opsional)" class="custom-name-input">
+            <div class="custom-input-group">
+                <input type="number" id="customMinutes" placeholder="Menit" min="0" max="999">
+                <span>:</span>
+                <input type="number" id="customSeconds" placeholder="Detik" min="0" max="59">
+            </div>
         </div>
         <button id="startCustomBtn">Mulai Timer</button>
     </div>
