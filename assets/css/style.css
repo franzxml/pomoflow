@@ -240,6 +240,36 @@ button:active {
     box-shadow: 0 6px #5e2805;
 }
 
+.confirm-actions {
+    display: flex;
+    gap: 16px;
+    justify-content: center;
+}
+
+.confirm-actions button {
+    margin-top: 0;
+    flex: 1;
+    max-width: 140px;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    box-shadow: 0 6px #5e2805;
+}
+
+#confirmNoBtn {
+    background-color: transparent;
+    color: var(--bg-color);
+    border: 2px solid var(--bg-color);
+    box-shadow: none;
+}
+
+#confirmNoBtn:hover {
+    box-shadow: none;
+}
+
+#confirmNoBtn:active {
+    box-shadow: none;
+}
+
 .developer-credit {
     margin-top: 40px;
     font-size: 0.8rem;
