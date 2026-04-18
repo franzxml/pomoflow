@@ -10,6 +10,7 @@ const timeDisplay = document.getElementById('time-display');
 const timerTitle = document.getElementById('timer-title');
 const startPauseBtn = document.getElementById('startPauseBtn');
 const resetBtn = document.getElementById('resetBtn');
+const aturUlangBtn = document.getElementById('aturUlangBtn');
 
 export function initTimer() {
     const workModeBtn = document.getElementById('workModeBtn');
@@ -61,6 +62,8 @@ export function initTimer() {
         setTimerMode(totalSeconds / 60, title);
     });
 
+    aturUlangBtn.addEventListener('click', () => switchView('custom', 'forward'));
+
     startPauseBtn.addEventListener('click', toggleTimer);
     resetBtn.addEventListener('click', resetTimer);
 }
@@ -69,6 +72,7 @@ function setTimerMode(minutes, title) {
     timeLeft = Math.round(minutes * 60);
     initialTime = timeLeft;
     timerTitle.textContent = title;
+    aturUlangBtn.style.display = 'none';
     updateDisplay();
     switchView('timer', 'forward');
 }
@@ -95,6 +99,7 @@ function startTimer() {
         updateDisplay();
         if (timeLeft <= 0) {
             stopTimer();
+            aturUlangBtn.style.display = 'block';
             showNotification(`Waktu ${timerTitle.textContent} telah selesai!`);
         }
     }, 1000);
@@ -117,5 +122,6 @@ export function isTimerActive() {
 function resetTimer() {
     stopTimer();
     timeLeft = initialTime;
+    aturUlangBtn.style.display = 'none';
     updateDisplay();
 }
