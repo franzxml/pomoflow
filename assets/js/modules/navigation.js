@@ -8,13 +8,15 @@ const views = {
 };
 
 let currentView = 'home';
+let isTransitioning = false;
 
 export function initNavigation(onBackToMode) {
     const mainStartBtn = document.getElementById('mainStartBtn');
-    
+
     mainStartBtn.addEventListener('click', () => switchView('mode', 'forward'));
 
     backBtn.addEventListener('click', () => {
+        if (isTransitioning) return;
         if (currentView === 'timer') {
             onBackToMode();
             switchView('mode', 'backward');
@@ -27,27 +29,33 @@ export function initNavigation(onBackToMode) {
 }
 
 export function switchView(targetView, direction = 'forward') {
+    if (isTransitioning) return;
+    isTransitioning = true;
+
     const outAnim = direction === 'forward' ? 'slide-out' : 'slide-out-right';
     const inAnim = direction === 'forward' ? 'slide-in' : 'slide-in-left';
 
     const currentEl = views[currentView];
     const targetEl = views[targetView];
 
+    backBtn.style.pointerEvents = 'none';
     document.body.classList.add(outAnim);
 
     setTimeout(() => {
         currentEl.style.display = 'none';
         targetEl.style.display = 'flex';
-        
+
         backBtn.style.display = targetView === 'home' ? 'none' : 'block';
 
         document.body.classList.remove(outAnim);
         document.body.classList.add(inAnim);
-        
+
         currentView = targetView;
 
         setTimeout(() => {
             document.body.classList.remove(inAnim);
+            backBtn.style.pointerEvents = '';
+            isTransitioning = false;
         }, 600);
     }, 600);
 }
