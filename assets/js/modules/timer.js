@@ -10,7 +10,9 @@ const timeDisplay = document.getElementById('time-display');
 const timerTitle = document.getElementById('timer-title');
 const startPauseBtn = document.getElementById('startPauseBtn');
 const resetBtn = document.getElementById('resetBtn');
+const timerEndActions = document.getElementById('timer-end-actions');
 const aturUlangBtn = document.getElementById('aturUlangBtn');
+const mulaiLagiBtn = document.getElementById('mulaiLagiBtn');
 const timerIndicator = document.getElementById('timer-indicator');
 const indicatorText = document.getElementById('indicator-text');
 const confirmModal = document.getElementById('confirm-modal');
@@ -113,6 +115,13 @@ export function initTimer() {
         }
     });
 
+    mulaiLagiBtn.addEventListener('click', () => {
+        timerEndActions.style.display = 'none';
+        timeLeft = initialTime;
+        updateDisplay();
+        startTimer();
+    });
+
     aturUlangBtn.addEventListener('click', () => switchView('custom', 'forward'));
     timerIndicator.addEventListener('click', () => switchView('timer', 'forward'));
 
@@ -125,7 +134,7 @@ function setTimerMode(minutes, title) {
     timeLeft = Math.round(minutes * 60);
     initialTime = timeLeft;
     timerTitle.textContent = title;
-    aturUlangBtn.style.display = 'none';
+    timerEndActions.style.display = 'none';
     hideIndicator();
     updateDisplay();
     switchView('timer', 'forward');
@@ -175,7 +184,7 @@ function startTimer() {
         if (timeLeft <= 0) {
             stopTimer();
             hideIndicator();
-            aturUlangBtn.style.display = 'block';
+            timerEndActions.style.display = 'flex';
             showNotification(`Waktu ${timerTitle.textContent} telah selesai!`);
         }
     }, 1000);
@@ -195,7 +204,7 @@ export function stopTimer() {
 function resetTimer() {
     stopTimer();
     timeLeft = initialTime;
-    aturUlangBtn.style.display = 'none';
+    timerEndActions.style.display = 'none';
     hideIndicator();
     updateDisplay();
 }
