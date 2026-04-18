@@ -10,7 +10,7 @@ const views = {
 let currentView = 'home';
 let isTransitioning = false;
 
-export function initNavigation(onBackToMode) {
+export function initNavigation(onBackToMode, checkTimerActive) {
     const mainStartBtn = document.getElementById('mainStartBtn');
 
     mainStartBtn.addEventListener('click', () => switchView('mode', 'forward'));
@@ -18,6 +18,9 @@ export function initNavigation(onBackToMode) {
     backBtn.addEventListener('click', () => {
         if (isTransitioning) return;
         if (currentView === 'timer') {
+            if (checkTimerActive && checkTimerActive()) {
+                if (!confirm('Timer masih aktif. Yakin ingin keluar?')) return;
+            }
             onBackToMode();
             switchView('mode', 'backward');
         } else if (currentView === 'custom') {

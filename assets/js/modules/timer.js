@@ -110,6 +110,10 @@ export function stopTimer() {
     pauseTimer();
 }
 
+export function isTimerActive() {
+    return timerId !== null || (timeLeft > 0 && timeLeft < initialTime);
+}
+
 function resetTimer() {
     stopTimer();
     timeLeft = initialTime;
