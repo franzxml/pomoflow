@@ -34,7 +34,17 @@ export function initTimer() {
         const mins = parseInt(minsInput.value) || 0;
         const secs = parseInt(secsInput.value) || 0;
         const customName = nameInput.value.trim();
-        
+
+        if (mins < 0 || secs < 0) {
+            alert("Waktu tidak boleh bernilai negatif!");
+            return;
+        }
+
+        if (secs > 59) {
+            alert("Detik tidak boleh lebih dari 59!");
+            return;
+        }
+
         if (mins === 0 && secs === 0) {
             alert("Harap masukkan waktu yang valid!");
             return;
