@@ -13,6 +13,20 @@ const resetBtn = document.getElementById('resetBtn');
 const aturUlangBtn = document.getElementById('aturUlangBtn');
 const timerIndicator = document.getElementById('timer-indicator');
 const indicatorText = document.getElementById('indicator-text');
+const confirmModal = document.getElementById('confirm-modal');
+const confirmYesBtn = document.getElementById('confirmYesBtn');
+const confirmNoBtn = document.getElementById('confirmNoBtn');
+
+let pendingConfirmCallback = null;
+
+export function isTimerActive() {
+    return timerId !== null || (timeLeft > 0 && timeLeft < initialTime);
+}
+
+function showConfirmModal(onConfirm) {
+    pendingConfirmCallback = onConfirm;
+    confirmModal.style.display = 'flex';
+}
 
 export function initTimer() {
     const workModeBtn = document.getElementById('workModeBtn');
@@ -20,8 +34,33 @@ export function initTimer() {
     const customModeBtn = document.getElementById('customModeBtn');
     const startCustomBtn = document.getElementById('startCustomBtn');
 
-    workModeBtn.addEventListener('click', () => setTimerMode(25, 'Kerja'));
-    breakModeBtn.addEventListener('click', () => setTimerMode(5, 'Istirahat'));
+    confirmYesBtn.addEventListener('click', () => {
+        confirmModal.style.display = 'none';
+        if (pendingConfirmCallback) {
+            pendingConfirmCallback();
+            pendingConfirmCallback = null;
+        }
+    });
+
+    confirmNoBtn.addEventListener('click', () => {
+        confirmModal.style.display = 'none';
+        pendingConfirmCallback = null;
+    });
+
+    workModeBtn.addEventListener('click', () => {
+        if (isTimerActive()) {
+            showConfirmModal(() => setTimerMode(25, 'Kerja'));
+        } else {
+            setTimerMode(25, 'Kerja');
+        }
+    });
+    breakModeBtn.addEventListener('click', () => {
+        if (isTimerActive()) {
+            showConfirmModal(() => setTimerMode(5, 'Istirahat'));
+        } else {
+            setTimerMode(5, 'Istirahat');
+        }
+    });
     
     // Menuju ke setup kustom
     customModeBtn.addEventListener('click', () => {
@@ -55,13 +94,16 @@ export function initTimer() {
 
         const totalSeconds = (mins * 60) + secs;
         const title = customName || 'Kostum';
-        
-        // Reset inputs
+
         minsInput.value = '';
         secsInput.value = '';
         nameInput.value = '';
 
-        setTimerMode(totalSeconds / 60, title);
+        if (isTimerActive()) {
+            showConfirmModal(() => setTimerMode(totalSeconds / 60, title));
+        } else {
+            setTimerMode(totalSeconds / 60, title);
+        }
     });
 
     aturUlangBtn.addEventListener('click', () => switchView('custom', 'forward'));
