@@ -1,6 +1,6 @@
 // Timer Module
 import { showNotification } from './notifications.js';
-import { switchView } from './navigation.js';
+import { switchView, getCurrentView } from './navigation.js';
 
 let timeLeft = 25 * 60;
 let initialTime = 25 * 60;
@@ -11,6 +11,8 @@ const timerTitle = document.getElementById('timer-title');
 const startPauseBtn = document.getElementById('startPauseBtn');
 const resetBtn = document.getElementById('resetBtn');
 const aturUlangBtn = document.getElementById('aturUlangBtn');
+const timerIndicator = document.getElementById('timer-indicator');
+const indicatorText = document.getElementById('indicator-text');
 
 export function initTimer() {
     const workModeBtn = document.getElementById('workModeBtn');
@@ -63,6 +65,7 @@ export function initTimer() {
     });
 
     aturUlangBtn.addEventListener('click', () => switchView('custom', 'forward'));
+    timerIndicator.addEventListener('click', () => switchView('timer', 'forward'));
 
     startPauseBtn.addEventListener('click', toggleTimer);
     resetBtn.addEventListener('click', resetTimer);
@@ -73,6 +76,7 @@ function setTimerMode(minutes, title) {
     initialTime = timeLeft;
     timerTitle.textContent = title;
     aturUlangBtn.style.display = 'none';
+    timerIndicator.style.display = 'none';
     updateDisplay();
     switchView('timer', 'forward');
 }
@@ -81,6 +85,15 @@ function updateDisplay() {
     const minutes = Math.floor(timeLeft / 60);
     const seconds = timeLeft % 60;
     timeDisplay.textContent = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+}
+
+function updateIndicator() {
+    if (getCurrentView() !== 'timer') {
+        indicatorText.textContent = `${timerTitle.textContent}: ${timeDisplay.textContent} ▶`;
+        timerIndicator.style.display = 'flex';
+    } else {
+        timerIndicator.style.display = 'none';
+    }
 }
 
 function toggleTimer() {
@@ -97,8 +110,10 @@ function startTimer() {
     timerId = setInterval(() => {
         timeLeft--;
         updateDisplay();
+        updateIndicator();
         if (timeLeft <= 0) {
             stopTimer();
+            timerIndicator.style.display = 'none';
             aturUlangBtn.style.display = 'block';
             showNotification(`Waktu ${timerTitle.textContent} telah selesai!`);
         }
@@ -109,19 +124,17 @@ function pauseTimer() {
     clearInterval(timerId);
     timerId = null;
     startPauseBtn.textContent = "Mulai";
+    timerIndicator.style.display = 'none';
 }
 
 export function stopTimer() {
     pauseTimer();
 }
 
-export function isTimerActive() {
-    return timerId !== null || (timeLeft > 0 && timeLeft < initialTime);
-}
-
 function resetTimer() {
     stopTimer();
     timeLeft = initialTime;
     aturUlangBtn.style.display = 'none';
+    timerIndicator.style.display = 'none';
     updateDisplay();
 }
