@@ -78,6 +78,7 @@ function toggleTimer() {
 }
 
 function startTimer() {
+    if (timeLeft <= 0) return;
     startPauseBtn.textContent = "Jeda";
     timerId = setInterval(() => {
         timeLeft--;
