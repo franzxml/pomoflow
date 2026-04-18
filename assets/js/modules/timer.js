@@ -64,7 +64,14 @@ export function initTimer() {
     
     // Menuju ke setup kustom
     customModeBtn.addEventListener('click', () => {
-        switchView('custom', 'forward');
+        if (isTimerActive()) {
+            showConfirmModal(() => {
+                stopTimer();
+                switchView('custom', 'forward');
+            });
+        } else {
+            switchView('custom', 'forward');
+        }
     });
 
     // Mulai timer kustom
@@ -114,6 +121,7 @@ export function initTimer() {
 }
 
 function setTimerMode(minutes, title) {
+    stopTimer();
     timeLeft = Math.round(minutes * 60);
     initialTime = timeLeft;
     timerTitle.textContent = title;
