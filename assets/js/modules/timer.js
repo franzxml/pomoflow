@@ -126,7 +126,7 @@ function setTimerMode(minutes, title) {
     initialTime = timeLeft;
     timerTitle.textContent = title;
     aturUlangBtn.style.display = 'none';
-    timerIndicator.style.display = 'none';
+    hideIndicator();
     updateDisplay();
     switchView('timer', 'forward');
 }
@@ -137,12 +137,23 @@ function updateDisplay() {
     timeDisplay.textContent = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
 }
 
+function showIndicator() {
+    if (timerIndicator.style.display === 'flex') return;
+    timerIndicator.style.display = 'flex';
+    timerIndicator.classList.add('visible');
+}
+
+function hideIndicator() {
+    timerIndicator.style.display = 'none';
+    timerIndicator.classList.remove('visible');
+}
+
 function updateIndicator() {
     if (getCurrentView() !== 'timer') {
-        indicatorText.textContent = `${timerTitle.textContent}: ${timeDisplay.textContent} ▶`;
-        timerIndicator.style.display = 'flex';
+        indicatorText.textContent = `⏱ ${timerTitle.textContent}: ${timeDisplay.textContent}`;
+        showIndicator();
     } else {
-        timerIndicator.style.display = 'none';
+        hideIndicator();
     }
 }
 
@@ -163,7 +174,7 @@ function startTimer() {
         updateIndicator();
         if (timeLeft <= 0) {
             stopTimer();
-            timerIndicator.style.display = 'none';
+            hideIndicator();
             aturUlangBtn.style.display = 'block';
             showNotification(`Waktu ${timerTitle.textContent} telah selesai!`);
         }
@@ -174,7 +185,7 @@ function pauseTimer() {
     clearInterval(timerId);
     timerId = null;
     startPauseBtn.textContent = "Mulai";
-    timerIndicator.style.display = 'none';
+    hideIndicator();
 }
 
 export function stopTimer() {
@@ -185,6 +196,6 @@ function resetTimer() {
     stopTimer();
     timeLeft = initialTime;
     aturUlangBtn.style.display = 'none';
-    timerIndicator.style.display = 'none';
+    hideIndicator();
     updateDisplay();
 }
