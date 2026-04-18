@@ -2,6 +2,8 @@
     --bg-color: #8b3b08;
     --text-color: #cdac95;
     --button-shadow: #a68b78;
+    --shadow-dark: #5e2805;
+    --overlay-bg: rgba(139, 59, 8, 0.8);
     --transition-speed: 0.6s;
     --ease-smooth: cubic-bezier(0.65, 0, 0.35, 1);
 }
@@ -202,7 +204,7 @@ button:active {
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(139, 59, 8, 0.8);
+    background-color: var(--overlay-bg);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -237,7 +239,7 @@ button:active {
     margin-top: 0;
     background-color: var(--bg-color);
     color: var(--text-color);
-    box-shadow: 0 6px #5e2805;
+    box-shadow: 0 6px var(--shadow-dark);
 }
 
 .confirm-actions {
@@ -252,7 +254,7 @@ button:active {
     max-width: 140px;
     background-color: var(--bg-color);
     color: var(--text-color);
-    box-shadow: 0 6px #5e2805;
+    box-shadow: 0 6px var(--shadow-dark);
 }
 
 #confirmNoBtn {
@@ -268,6 +270,23 @@ button:active {
 
 #confirmNoBtn:active {
     box-shadow: none;
+}
+
+.color-picker-btn {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 14px;
+    padding: 10px 24px;
+    font-size: 0.9rem;
+}
+
+.color-preview {
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    border: 2px solid currentColor;
+    flex-shrink: 0;
 }
 
 .developer-credit {
