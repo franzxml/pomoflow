@@ -1,10 +1,13 @@
 :root {
     --bg-color: #8b3b08;
     --text-color: #cdac95;
+    --text-color-rgb: 205, 172, 149;
     --button-shadow: #a68b78;
     --shadow-dark: #5e2805;
+    --shadow-overlay: rgba(0, 0, 0, 0.3);
     --overlay-bg: rgba(139, 59, 8, 0.8);
     --transition-speed: 0.6s;
+    --transition-fast: 0.1s;
     --ease-smooth: cubic-bezier(0.65, 0, 0.35, 1);
 }
 
@@ -91,7 +94,7 @@ h1 {
 
 .custom-name-input:focus {
     outline: none;
-    background-color: rgba(205, 172, 149, 0.1);
+    background-color: rgba(var(--text-color-rgb), 0.1);
 }
 
 .custom-input-group {
@@ -114,7 +117,7 @@ h1 {
 
 .custom-input-group input:focus {
     outline: none;
-    background-color: rgba(205, 172, 149, 0.1);
+    background-color: rgba(var(--text-color-rgb), 0.1);
 }
 
 .custom-input-group span {
@@ -159,18 +162,18 @@ input[type=number] {
 }
 
 button {
+    position: relative;
     margin-top: 30px;
     padding: 12px 32px;
     font-size: 1.1rem;
+    font-weight: bold;
     background-color: var(--text-color);
     color: var(--bg-color);
     border: none;
     border-radius: 8px;
     cursor: pointer;
-    font-weight: bold;
     box-shadow: 0 6px var(--button-shadow);
-    position: relative;
-    transition: all 0.1s;
+    transition: all var(--transition-fast);
 }
 
 button:hover {
@@ -218,7 +221,7 @@ button:active {
     padding: 40px;
     border-radius: 16px;
     text-align: center;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    box-shadow: 0 10px 30px var(--shadow-overlay);
     max-width: 400px;
     width: 90%;
 }
@@ -272,6 +275,14 @@ button:active {
     box-shadow: none;
 }
 
+#colorPickerInput {
+    position: fixed;
+    width: 0;
+    height: 0;
+    pointer-events: none;
+    opacity: 0;
+}
+
 .color-picker-btn {
     display: flex;
     align-items: center;
@@ -301,14 +312,15 @@ button:active {
 }
 
 @keyframes indicatorPulse {
-    0%, 100% { box-shadow: 0 4px var(--button-shadow), 0 0 0 0 rgba(205, 172, 149, 0.45); }
-    50%       { box-shadow: 0 4px var(--button-shadow), 0 0 0 8px rgba(205, 172, 149, 0); }
+    0%, 100% { box-shadow: 0 4px var(--button-shadow), 0 0 0 0 rgba(var(--text-color-rgb), 0.45); }
+    50%       { box-shadow: 0 4px var(--button-shadow), 0 0 0 8px rgba(var(--text-color-rgb), 0); }
 }
 
 #timer-indicator {
     position: fixed;
     bottom: 24px;
     left: 50%;
+    margin-top: 0;
     transform: translateX(-50%);
     background-color: var(--text-color);
     color: var(--bg-color);
@@ -320,7 +332,7 @@ button:active {
     cursor: pointer;
     z-index: 500;
     box-shadow: 0 4px var(--button-shadow);
-    transition: box-shadow 0.1s, transform 0.1s;
+    transition: box-shadow var(--transition-fast), transform var(--transition-fast);
     white-space: nowrap;
 }
 

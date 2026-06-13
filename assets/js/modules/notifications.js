@@ -14,12 +14,14 @@ export function initNotifications() {
     }
 }
 
-export function showNotification(message) {
-    // 1. UI Notification
+export function showError(message) {
     notifMessage.textContent = message;
-    customNotif.style.display = "flex";
+    customNotif.style.display = 'flex';
+}
 
-    // 2. System Notification
+export function showNotification(message) {
+    showError(message);
+
     if ("Notification" in window && Notification.permission === "granted") {
         const emojiIcon = `data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🔔</text></svg>`;
         new Notification("Pomoflow", { body: message, icon: emojiIcon });

@@ -1,5 +1,5 @@
 // Timer Module
-import { showNotification } from './notifications.js';
+import { showNotification, showError } from './notifications.js';
 import { switchView, getCurrentView } from './navigation.js';
 
 let timeLeft = 25 * 60;
@@ -18,6 +18,9 @@ const indicatorText = document.getElementById('indicator-text');
 const confirmModal = document.getElementById('confirm-modal');
 const confirmYesBtn = document.getElementById('confirmYesBtn');
 const confirmNoBtn = document.getElementById('confirmNoBtn');
+const minsInput = document.getElementById('customMinutes');
+const secsInput = document.getElementById('customSeconds');
+const nameInput = document.getElementById('customName');
 
 let pendingConfirmCallback = null;
 
@@ -77,43 +80,7 @@ export function initTimer() {
     });
 
     // Mulai timer kustom
-    startCustomBtn.addEventListener('click', () => {
-        const minsInput = document.getElementById('customMinutes');
-        const secsInput = document.getElementById('customSeconds');
-        const nameInput = document.getElementById('customName');
-
-        const mins = parseInt(minsInput.value) || 0;
-        const secs = parseInt(secsInput.value) || 0;
-        const customName = nameInput.value.trim();
-
-        if (mins < 0 || secs < 0) {
-            alert("Waktu tidak boleh bernilai negatif!");
-            return;
-        }
-
-        if (secs > 59) {
-            alert("Detik tidak boleh lebih dari 59!");
-            return;
-        }
-
-        if (mins === 0 && secs === 0) {
-            alert("Harap masukkan waktu yang valid!");
-            return;
-        }
-
-        const totalSeconds = (mins * 60) + secs;
-        const title = customName || 'Kostum';
-
-        minsInput.value = '';
-        secsInput.value = '';
-        nameInput.value = '';
-
-        if (isTimerActive()) {
-            showConfirmModal(() => setTimerMode(totalSeconds / 60, title));
-        } else {
-            setTimerMode(totalSeconds / 60, title);
-        }
-    });
+    startCustomBtn.addEventListener('click', startCustomTimer);
 
     mulaiLagiBtn.addEventListener('click', () => {
         timerEndActions.style.display = 'none';
@@ -127,6 +94,38 @@ export function initTimer() {
 
     startPauseBtn.addEventListener('click', toggleTimer);
     resetBtn.addEventListener('click', resetTimer);
+}
+
+function startCustomTimer() {
+    const mins = parseInt(minsInput.value) || 0;
+    const secs = parseInt(secsInput.value) || 0;
+    const customName = nameInput.value.trim();
+
+    if (mins < 0 || secs < 0) {
+        showError('Waktu tidak boleh bernilai negatif!');
+        return;
+    }
+    if (secs > 59) {
+        showError('Detik tidak boleh lebih dari 59!');
+        return;
+    }
+    if (mins === 0 && secs === 0) {
+        showError('Harap masukkan waktu yang valid!');
+        return;
+    }
+
+    const totalSeconds = (mins * 60) + secs;
+    const title = customName || 'Kostum';
+
+    minsInput.value = '';
+    secsInput.value = '';
+    nameInput.value = '';
+
+    if (isTimerActive()) {
+        showConfirmModal(() => setTimerMode(totalSeconds / 60, title));
+    } else {
+        setTimerMode(totalSeconds / 60, title);
+    }
 }
 
 function setTimerMode(minutes, title) {

@@ -2,12 +2,13 @@
 const DEFAULT_BG = '#8b3b08';
 const STORAGE_KEY = 'pomoflow-bg-color';
 
+const colorPickerBtn = document.getElementById('colorPickerBtn');
+const colorPickerInput = document.getElementById('colorPickerInput');
+const colorPreview = document.getElementById('colorPreview');
+
 export function initTheme() {
     const saved = localStorage.getItem(STORAGE_KEY) || DEFAULT_BG;
     applyTheme(saved);
-
-    const colorPickerBtn = document.getElementById('colorPickerBtn');
-    const colorPickerInput = document.getElementById('colorPickerInput');
 
     colorPickerBtn.addEventListener('click', () => colorPickerInput.click());
 
@@ -27,11 +28,8 @@ function applyTheme(hex) {
     root.style.setProperty('--shadow-dark', shadowDark);
     root.style.setProperty('--overlay-bg', overlayBg);
 
-    const colorPickerInput = document.getElementById('colorPickerInput');
-    if (colorPickerInput) colorPickerInput.value = hex;
-
-    const colorPreview = document.getElementById('colorPreview');
-    if (colorPreview) colorPreview.style.backgroundColor = hex;
+    colorPickerInput.value = hex;
+    colorPreview.style.backgroundColor = hex;
 }
 
 function deriveColors(hex) {
