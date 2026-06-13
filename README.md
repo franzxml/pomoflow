@@ -1,13 +1,13 @@
 ## Fitur
 
-- Timer Kerja — 25 menit fokus dengan indikator aktif
-- Timer Istirahat — 5 menit jeda
-- Timer Kostum — atur durasi dan nama sendiri
-- Konfirmasi ganti timer — mencegah penggantian timer yang masih berjalan
-- Indikator timer — tetap terlihat saat navigasi antar halaman
-- Notifikasi — pemberitahuan saat waktu habis
-- Ganti warna latar — color picker untuk personalisasi tema
-- Mulai lagi — ulangi sesi yang sama setelah timer selesai
+- Timer Kerja - 25 menit fokus dengan indikator aktif
+- Timer Istirahat - 5 menit jeda
+- Timer Kostum - atur durasi dan nama sendiri
+- Konfirmasi ganti timer - mencegah penggantian timer yang masih berjalan
+- Indikator timer - tetap terlihat saat navigasi antar halaman
+- Notifikasi - pemberitahuan saat waktu habis
+- Ganti warna latar - color picker untuk personalisasi tema
+- Mulai lagi - ulangi sesi yang sama setelah timer selesai
 
 ## Teknologi
 
